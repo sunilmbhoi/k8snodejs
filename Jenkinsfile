@@ -7,15 +7,15 @@ stage('Preparation') {
   sh 'chmod +x ./kubectl && mv kubectl /usr/local/sbin'
 
 //Clone git repository
-  git url:'https://bitbucket.org/advatys/jenkins-pipeline.git'
+  git url:'https://github.com/sunilmbhoi/k8snodejs.git'
    }
 
 stage('Integration') {
  
-      withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
+      withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://192.168.56.191:6443']) {
       
          sh 'kubectl create cm nodejs-app --from-file=src/ --namespace=myapp-integration -o=yaml --dry-run > deploy/cm.yaml'
-         sh 'kubectl apply -f deploy/ --namespace=myapp-integration'
+         sh 'kubectl apply -f deploy/ --namespace=myapp-integration --validate=false'
          try{
           //Gathering Node.js app's external IP address
           def ip = ''

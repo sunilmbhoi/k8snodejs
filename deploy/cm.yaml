@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  index.js: "var http = require('http');\nvar url = require('url');\n\nvar server
+    = http.createServer(function(req, res) {\n\t var page = url.parse(req.url).pathname;\n\t
+    \ console.log(page);\n\t   res.writeHead(200, {\"Content-Type\": \"text/plain\"});\n\t
+    \   \n\t    if (page == '/') {\n\t\t       res.write('This is homepage');\n\t\t
+    \       }\n\t     else if (page == '/dir1') {\n\t\t       res.write('Welcome to
+    dir1, how can I help you ?');\n\t\t        }\n else if (page == '/dir2/person/1')
+    {\n\t   res.write('The information about person with id 1 is X');\n\t    }\n res.end();\n});\n\nserver.listen(8080);\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: nodejs-app
+  namespace: myapp-integration

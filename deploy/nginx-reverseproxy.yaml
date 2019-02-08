@@ -5,7 +5,7 @@ metadata:
 spec:
  selector:
     app:  nginx-reverseproxy
- type: LoadBalancer  #LB to expose the service and get an external IP address
+ type: NodePort  #LB to expose the service and get an external IP address
  ports:
   - name: http
     port: 80
@@ -15,9 +15,9 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  name: nginx-reverseproxy-deployment
   labels:
     app:  nginx-reverseproxy
-  name: nginx-reverseproxy-deployment
 spec:
   replicas: 1
   template:

@@ -55,11 +55,11 @@ stage('Integration') {
 }
    }
  stage('Production') {
-      withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://104.155.31.202']) {
+      withKubeConfig([credentialsId: 'jenkins-deployer-credentials', serverUrl: 'https://192.168.56.191:6443']) {
       
        sh 'kubectl create cm nodejs-app --from-file=src/ --namespace=myapp-production -o=yaml --dry-run > deploy/cm.yaml'
 
-sh 'kubectl apply -f deploy/ --namespace=myapp-production'
+sh 'kubectl apply -f deploy/ --namespace=myapp-production --validate=false'
       
   
       //Gathering Node.js app's external IP address
